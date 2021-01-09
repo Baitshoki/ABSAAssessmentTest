@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WEBAPI_MVC_PB.PhoneBook>
+
+<br />
+<div class="container">
+   
+    <br /><br />
+    <input id="myInput" type="text" placeholder="Search..">
+    <br />
+    <hr />
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <hr />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>PhoneNumber</th>
+                <th>  </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+
+            @foreach (var phone in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => phone.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => phone.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => phone.PhoneNumber)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = phone.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = phone.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = phone.Id })
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
